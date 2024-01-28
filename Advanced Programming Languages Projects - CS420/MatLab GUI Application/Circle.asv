@@ -1,0 +1,51 @@
+classdef Circle < Shape & ColorMixin
+
+    properties
+
+        radius 
+         
+    end 
+
+    methods 
+        %Circle's constructor
+        function obj = Circle(newName, radius, newColor)
+            obj@Shape(newName); %calling superclass to assign a name
+            obj@ColorMixin(newColor); %Calls other superclass's constructor
+                                      %to fill in circle's color
+            obj.radius = radius;
+        end 
+        
+        %Function to calc area of circle
+        function obj = CalculateArea(obj)
+            circleArea = pi * obj.radius^2; %area formula
+            obj.Area = round(circleArea);
+        end
+        
+        %displays circle
+        function disp(obj)
+            disp@Shape(obj); %calls superclass's version for disp
+            fprintf('This circle is %s \n', obj.color); %prints new info
+        end
+        
+        %opens a plot and draws the circle created
+        function draw(obj) 
+            title('Drawing of a Circle');
+            %constructs le circle
+            viscircles([obj.radius, obj.radius], ...
+                obj.radius, 'Color', obj.color);
+            %position of where circle should be
+            pos = [0, 0, ...
+                (2 * obj.radius), (2 * obj.radius)];
+            rectangle('Position',pos , ...
+                'Curvature', [1,1], ...
+                'FaceColor', obj.color);
+                        str = sprintf('Length: %f, \n Width: %f, \n Color: %s', ...
+                obj.length, obj.width, obj.color);            
+            text((obj.length), (obj.width), str, ...
+                'BackgroundColor','white', 'FontSize',14, ...
+                'HorizontalAlignment','center');
+        end
+
+    end
+
+end

@@ -1,0 +1,46 @@
+classdef Rectangle < Shape & ColorMixin
+
+    properties
+
+        length
+        width
+
+    end 
+
+    methods 
+        
+        %Constructor for Rectangle
+        function obj = Rectangle(shapeName, length, width, newColor)
+            obj@Shape(shapeName); %calling superclass to assign a name
+            obj@ColorMixin(newColor);%Calls other superclass's constructor
+                                      %to fill in circle's color
+            obj.length = length;
+            obj.width = width;
+        end 
+        
+        %Calculates area of the Rectangle
+        function obj = CalculateArea(obj)
+            rectangleArea = obj.length * obj.width; %area formula
+            obj.Area = round(rectangleArea);
+        end
+        
+        %displays rectangle's properties and color
+        function disp(obj)
+            disp@Shape(obj); %calls superclass's constructor
+            fprintf('This rectangle is %s \n', obj.color);%prints new info
+        end
+
+        %opens a plot and draws the rectangle
+        function draw(obj)
+            title('Drawing of a Rectangle');
+            pos = [0, obj.length - 1, obj.width, obj.length];
+
+            %pos = [obj.length - 1, obj.length - 1, obj.width, obj.length];
+            rectangle('Position', pos,'FaceColor', obj.color, ...
+            'LineWidth', 3);
+        end
+
+    end
+
+
+end

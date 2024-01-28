@@ -1,0 +1,41 @@
+classdef Triangle < Shape & ColorMixin
+
+    properties
+
+        base
+        height
+
+    end 
+
+    methods 
+
+        function obj = Triangle(shapeName, b, h, newColor)
+            obj@Shape(shapeName);
+            obj@ColorMixin(newColor);%Calls other superclass's constructor
+                                      %to fill in circle's color
+            obj.base = b;
+            obj.height = h;
+        end 
+
+        function obj = CalculateArea(obj)
+            rectangleArea = .5 * obj.base * obj.height;
+            obj.Area = round(rectangleArea);
+        end
+
+        function disp(obj)
+            disp@Shape(obj);
+            fprintf('This triangle is %s', obj.color); 
+        end
+        
+        function draw(obj)
+            x = [0 obj.base/2 obj.base];
+            y = [0 obj.height 0];
+            title('Drawing of a Triangle');
+            plot(x,y, 'Color', obj.color);
+            fill(x,y, obj.color);
+        end 
+     
+    end
+
+
+end
